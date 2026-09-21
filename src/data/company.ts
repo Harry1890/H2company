@@ -1,0 +1,28 @@
+/**
+ * Factual company data. Nothing here is invented — fields without a
+ * confirmed real value stay empty, and components must render nothing
+ * for an empty field rather than a placeholder UI. See CLAUDE.md §22.
+ */
+export const companyConfig = {
+  // PLACEHOLDER — replace with the real company name before launch.
+  name: "Nexora",
+  legalName: "",
+  tagline: "Independent AI Engineering",
+  description:
+    "Production AI, machine learning, and agentic systems built for real-world use.",
+
+  locations: ["Remote — United States"] as string[],
+
+  social: {
+    linkedin: "",
+    github: "",
+  },
+
+  email: "",
+
+  ecosystem: {
+    enabled: true,
+    label: "Platforms our teams work with",
+    names: ["OpenAI", "Anthropic", "Google Cloud", "AWS", "Microsoft Azure"] as string[],
+  },
+} as const;
