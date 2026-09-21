@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Nexora — AI Engineering & Machine Learning",
-    template: "%s — Nexora",
+    default: "Wide — AI Engineering & Machine Learning",
+    template: "%s — Wide",
   },
   description:
     "Production AI, machine learning, and agentic systems built for real-world use.",

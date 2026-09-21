@@ -4,8 +4,7 @@
  * for an empty field rather than a placeholder UI. See CLAUDE.md §22.
  */
 export const companyConfig = {
-  // PLACEHOLDER — replace with the real company name before launch.
-  name: "Nexora",
+  name: "Wide",
   legalName: "",
   tagline: "Independent AI Engineering",
   description:
