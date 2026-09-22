@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getResend, NOTIFY_FROM, NOTIFY_TO } from "@/lib/resend";
+import { getResend, NOTIFY_FROM, NOTIFY_JOBS_EMAIL } from "@/lib/resend";
 
 const applyFields = z.object({
   jobTitle: z.string().min(1),
@@ -30,7 +30,7 @@ function row(label: string, value?: string) {
 }
 
 export async function POST(request: Request) {
-  if (!process.env.RESEND_API_KEY || !NOTIFY_TO) {
+  if (!process.env.RESEND_API_KEY || !NOTIFY_JOBS_EMAIL) {
     return NextResponse.json(
       { ok: false, error: "Email notifications are not configured on the server." },
       { status: 500 },
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
         ${row("Phone", data.phone)}
         ${row("LinkedIn", data.linkedin)}
         ${row("Portfolio", data.portfolio)}
-        ${row("Work authorization", data.workAuthorization === "yes" ? "Authorized to work in the EU" : "Not authorized")}
+        ${row("Work authorization", data.workAuthorization === "yes" ? "Authorized to work in the U.S." : "Not authorized")}
         ${row("Sponsorship required", data.sponsorshipRequired === "yes" ? "Yes" : "No")}
       </table>
       ${data.coverLetter ? `<h3 style="margin:20px 0 4px;">Cover letter</h3><p style="white-space:pre-wrap;">${escapeHtml(data.coverLetter)}</p>` : ""}
@@ -85,7 +85,7 @@ export async function POST(request: Request) {
 
   const { error } = await getResend().emails.send({
     from: NOTIFY_FROM,
-    to: [NOTIFY_TO],
+    to: [NOTIFY_JOBS_EMAIL],
     replyTo: data.email,
     subject: `New application — ${data.jobTitle} — ${data.firstName} ${data.lastName}`,
     html,

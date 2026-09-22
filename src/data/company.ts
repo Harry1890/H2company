@@ -10,14 +10,17 @@ export const companyConfig = {
   description:
     "Production AI, machine learning, and agentic systems built for real-world use.",
 
-  locations: ["Remote — France"] as string[],
+  locations: ["Remote — Texas, US"] as string[],
 
   social: {
     linkedin: "",
     github: "",
   },
 
-  email: "",
+  email: {
+    contact: "contact@wide.autos",
+    jobs: "jobs@wide.autos",
+  },
 
   ecosystem: {
     enabled: true,

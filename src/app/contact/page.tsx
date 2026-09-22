@@ -3,6 +3,8 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
+import { TextLink } from "@/components/ui/text-link";
+import { companyConfig } from "@/data/company";
 import { ContactForm } from "@/components/contact/contact-form";
 
 export const metadata: Metadata = {
@@ -22,6 +24,11 @@ export default function ContactPage() {
           <p className="mt-5 max-w-[var(--width-text)] text-body-l text-text-muted">
             Tell us about the system you need to build. We&apos;ll follow up to talk through
             scope, architecture, and fit.
+          </p>
+          <p className="mt-6">
+            <TextLink href={`mailto:${companyConfig.email.contact}`} showArrow={false}>
+              {companyConfig.email.contact}
+            </TextLink>
           </p>
         </Reveal>
         <Reveal delay={0.1} className="lg:col-span-7">

@@ -12,4 +12,10 @@ export function getResend() {
 }
 
 export const NOTIFY_FROM = "Wide <onboarding@resend.dev>";
-export const NOTIFY_TO = process.env.NOTIFY_EMAIL ?? "";
+
+// Each form notifies its own inbox. Falls back to NOTIFY_EMAIL if the
+// specific one isn't set, so a single-address setup still works.
+export const NOTIFY_CONTACT_EMAIL =
+  process.env.NOTIFY_CONTACT_EMAIL || process.env.NOTIFY_EMAIL || "";
+export const NOTIFY_JOBS_EMAIL =
+  process.env.NOTIFY_JOBS_EMAIL || process.env.NOTIFY_EMAIL || "";

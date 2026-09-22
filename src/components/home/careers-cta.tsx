@@ -17,7 +17,7 @@ export function CareersCta() {
               matter in production.
             </p>
             <p className="mt-4 font-mono text-meta uppercase tracking-[0.04em] text-text-soft">
-              Remote-first / France / Engineering-driven
+              Remote-first / Texas, US / Engineering-driven
             </p>
           </div>
           <PrimaryButton href="/careers">View open roles</PrimaryButton>

@@ -157,7 +157,7 @@ export function ApplyForm({ jobTitle, jobSlug }: { jobTitle: string; jobSlug: st
             {...register("workAuthorization")}
           >
             <option value="" disabled>
-              Are you authorized to work in the EU?
+              Are you authorized to work in the U.S.?
             </option>
             <option value="yes">Yes</option>
             <option value="no">No</option>

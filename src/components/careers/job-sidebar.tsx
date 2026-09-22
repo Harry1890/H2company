@@ -4,7 +4,7 @@ import { PrimaryButton } from "@/components/ui/primary-button";
 function formatSalary(job: Job) {
   if (!job.salary) return null;
   const { min, max } = job.salary;
-  return `€${Math.round(min / 1000)}K–€${Math.round(max / 1000)}K`;
+  return `$${Math.round(min / 1000)}K–$${Math.round(max / 1000)}K`;
 }
 
 export function JobSidebar({ job }: { job: Job }) {

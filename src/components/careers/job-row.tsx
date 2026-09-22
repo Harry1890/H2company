@@ -5,7 +5,7 @@ import type { Job } from "@/types";
 function formatSalary(job: Job) {
   if (!job.salary) return null;
   const { min, max } = job.salary;
-  return `€${Math.round(min / 1000)}K–€${Math.round(max / 1000)}K`;
+  return `$${Math.round(min / 1000)}K–$${Math.round(max / 1000)}K`;
 }
 
 export function JobRow({ job }: { job: Job }) {

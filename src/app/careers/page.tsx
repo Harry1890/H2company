@@ -3,8 +3,10 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
+import { TextLink } from "@/components/ui/text-link";
 import { values } from "@/data/values";
 import { jobs } from "@/data/jobs";
+import { companyConfig } from "@/data/company";
 import { CareersBoard } from "@/components/careers/careers-board";
 
 export const metadata: Metadata = {
@@ -51,6 +53,12 @@ export default function CareersPage() {
           <div className="mt-8">
             <CareersBoard jobs={jobs} />
           </div>
+          <p className="mt-12 border-t border-border pt-8 text-small text-text-muted">
+            Don&apos;t see the right role?{" "}
+            <TextLink href={`mailto:${companyConfig.email.jobs}`} showArrow={false}>
+              {companyConfig.email.jobs}
+            </TextLink>
+          </p>
         </Container>
       </Section>
     </>

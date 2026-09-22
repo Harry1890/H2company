@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getResend, NOTIFY_FROM, NOTIFY_TO } from "@/lib/resend";
+import { getResend, NOTIFY_FROM, NOTIFY_CONTACT_EMAIL } from "@/lib/resend";
 
 const contactFields = z.object({
   name: z.string().min(1),
@@ -23,7 +23,7 @@ function row(label: string, value: string) {
 }
 
 export async function POST(request: Request) {
-  if (!process.env.RESEND_API_KEY || !NOTIFY_TO) {
+  if (!process.env.RESEND_API_KEY || !NOTIFY_CONTACT_EMAIL) {
     return NextResponse.json(
       { ok: false, error: "Email notifications are not configured on the server." },
       { status: 500 },
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
 
   const { error } = await getResend().emails.send({
     from: NOTIFY_FROM,
-    to: [NOTIFY_TO],
+    to: [NOTIFY_CONTACT_EMAIL],
     replyTo: data.email,
     subject: `New contact message — ${data.name} (${data.company})`,
     html,

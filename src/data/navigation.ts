@@ -1,4 +1,5 @@
 import type { NavLink } from "@/types";
+import { companyConfig } from "@/data/company";
 
 export const primaryNav: NavLink[] = [
   { label: "What We Do", href: "/services" },
@@ -27,6 +28,9 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
   },
   {
     title: "Get in Touch",
-    links: [{ label: "Contact", href: "/contact" }],
+    links: [
+      { label: "Contact", href: "/contact" },
+      { label: companyConfig.email.contact, href: `mailto:${companyConfig.email.contact}` },
+    ],
   },
 ];
