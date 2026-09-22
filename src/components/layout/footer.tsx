@@ -32,7 +32,7 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-small text-text-muted transition-colors hover:text-text"
+                        className="inline-block text-small text-text-muted transition-all duration-200 hover:translate-x-0.5 hover:text-text"
                       >
                         {link.label}
                       </Link>

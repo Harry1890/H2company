@@ -39,11 +39,18 @@ export function Navbar() {
                 href={link.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "text-small font-medium text-text-muted transition-colors hover:text-text",
+                  "group relative py-1 text-small font-medium text-text-muted transition-colors hover:text-text",
                   active && "text-text",
                 )}
               >
                 {link.label}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-text transition-transform duration-300 group-hover:scale-x-100",
+                    active && "scale-x-100 bg-accent",
+                  )}
+                />
               </Link>
             );
           })}

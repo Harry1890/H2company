@@ -22,11 +22,12 @@ type ButtonAsButton = CommonProps & {
 };
 
 const base =
-  "group inline-flex h-12 items-center justify-center gap-2 rounded-btn px-6 text-body font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60";
+  "group inline-flex h-12 items-center justify-center gap-2 rounded-btn px-6 text-body font-semibold transition-all duration-300 ease-out hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0";
 
 const variantClasses = {
-  dark: "bg-text text-text-inverse hover:bg-text/90",
-  accent: "bg-accent text-accent-foreground hover:bg-accent/90",
+  dark: "bg-[length:180%_100%] bg-[position:0%_50%] bg-(image:--gradient-brand) text-white shadow-[0_10px_28px_-10px_rgba(0,76,198,0.55)] hover:bg-[position:100%_50%] hover:shadow-[0_18px_36px_-10px_rgba(34,147,252,0.6)]",
+  accent:
+    "bg-brand-blue-mid text-white shadow-[0_10px_24px_-10px_rgba(34,147,252,0.5)] hover:bg-brand-blue hover:shadow-[0_16px_32px_-10px_rgba(34,147,252,0.6)]",
 };
 
 export function PrimaryButton(props: ButtonAsLink | ButtonAsButton) {

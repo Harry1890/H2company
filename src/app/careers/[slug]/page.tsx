@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
+import { Reveal } from "@/components/ui/reveal";
 import { jobs } from "@/data/jobs";
 import { workStages } from "@/data/how-we-work";
 import { JobSidebar } from "@/components/careers/job-sidebar";
@@ -51,12 +52,14 @@ export default async function JobDetailPage(props: PageProps<"/careers/[slug]">)
           Careers
         </Link>
 
-        <h1 className="mt-6 max-w-[var(--width-longform)] text-display-l font-medium text-text">
-          {job.title}
-        </h1>
-        <p className="mt-3 font-mono text-meta uppercase tracking-[0.04em] text-text-soft">
-          {job.location} · {job.department} · {job.employmentType}
-        </p>
+        <Reveal delay={0.05}>
+          <h1 className="mt-6 max-w-[var(--width-longform)] text-display-l font-medium text-text">
+            {job.title}
+          </h1>
+          <p className="mt-3 font-mono text-meta uppercase tracking-[0.04em] text-text-soft">
+            {job.location} · {job.department} · {job.employmentType}
+          </p>
+        </Reveal>
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12">
           <div className="flex flex-col gap-10 lg:col-span-8">
@@ -100,9 +103,9 @@ export default async function JobDetailPage(props: PageProps<"/careers/[slug]">)
             </div>
           </div>
 
-          <div className="lg:col-span-4">
+          <Reveal delay={0.15} className="lg:col-span-4">
             <JobSidebar job={job} />
-          </div>
+          </Reveal>
         </div>
       </Container>
     </Section>

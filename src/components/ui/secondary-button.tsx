@@ -18,10 +18,10 @@ type ButtonAsButton = CommonProps & {
 export function SecondaryButton(props: ButtonAsLink | ButtonAsButton) {
   const { children, className, inverse = false } = props;
   const base = cn(
-    "inline-flex h-12 items-center justify-center rounded-btn border px-6 text-body font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60",
+    "inline-flex h-12 items-center justify-center rounded-btn border px-6 text-body font-medium transition-all duration-300 ease-out hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0",
     inverse
-      ? "border-border-dark text-text-inverse hover:bg-white/5"
-      : "border-border-strong text-text hover:bg-bg-soft",
+      ? "border-border-dark text-text-inverse hover:border-brand-cyan/50 hover:bg-white/5"
+      : "border-border-strong text-text hover:border-brand-blue-mid hover:bg-bg-soft",
     className,
   );
 

@@ -35,6 +35,7 @@ function findNode(id: string) {
 export function AgentGraph({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const gradientId = useId();
+  const agent = findNode("agent");
 
   return (
     <svg
@@ -45,13 +46,17 @@ export function AgentGraph({ className }: { className?: string }) {
     >
       <defs>
         <radialGradient id={gradientId} cx="50%" cy="45%" r="65%">
-          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.14" />
+          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.16" />
           <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
         </radialGradient>
       </defs>
       <rect x="0" y="0" width="520" height="400" fill={`url(#${gradientId})`} />
 
-      {edges.map(([from, to]) => {
+      <text x="16" y="24" className="fill-text-soft font-mono text-[10px] uppercase tracking-[0.08em]">
+        system / agent_graph
+      </text>
+
+      {edges.map(([from, to], i) => {
         const a = findNode(from);
         const b = findNode(to);
         const isActive = active === from || active === to;
@@ -67,10 +72,33 @@ export function AgentGraph({ className }: { className?: string }) {
             initial={{ pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: i * 0.05, ease: "easeOut" }}
           />
         );
       })}
+
+      {/* one-time focus pulse behind the agent node */}
+      <motion.circle
+        cx={agent.x}
+        cy={agent.y}
+        r={8}
+        fill="none"
+        stroke="var(--accent)"
+        strokeWidth={1}
+        initial={{ scale: 1, opacity: 0.6 }}
+        whileInView={{ scale: 3.2, opacity: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.4, delay: 0.5, ease: "easeOut" }}
+      />
+      <circle
+        cx={agent.x}
+        cy={agent.y}
+        r={16}
+        fill="none"
+        stroke="currentColor"
+        strokeOpacity={0.3}
+        strokeDasharray="2 4"
+      />
 
       {nodes.map((node) => {
         const isActive = active === node.id;
@@ -96,7 +124,10 @@ export function AgentGraph({ className }: { className?: string }) {
               x={node.x}
               y={node.y + (node.y > 200 ? 22 : -14)}
               textAnchor="middle"
-              className="fill-text-muted font-mono text-[11px] uppercase tracking-[0.04em]"
+              className={cn(
+                "font-mono text-[11px] uppercase tracking-[0.04em] transition-[fill] duration-200",
+                isActive ? "fill-text" : "fill-text-muted",
+              )}
             >
               {node.label}
             </text>

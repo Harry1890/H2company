@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Check } from "lucide-react";
+import { motion } from "motion/react";
 import { FormField, inputClasses, textareaClasses } from "@/components/ui/form-field";
 import { PrimaryButton } from "@/components/ui/primary-button";
 
@@ -30,30 +31,53 @@ type ContactValues = z.infer<typeof contactSchema>;
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ContactValues>({ resolver: zodResolver(contactSchema) });
 
-  async function onSubmit() {
-    // Frontend-only mock submission — no backend is wired up yet.
-    // TODO: replace with a real contact-intake integration.
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    setSubmitted(true);
+  async function onSubmit(values: ContactValues) {
+    setSubmitError(null);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const result = await response.json().catch(() => ({ ok: false }));
+      if (!response.ok || !result.ok) {
+        setSubmitError(result.error ?? "Something went wrong sending your message. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Something went wrong sending your message. Please try again.");
+    }
   }
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-start gap-4 border border-border p-8 rounded-card">
-        <span className="flex size-10 items-center justify-center rounded-full bg-accent text-accent-foreground">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="flex flex-col items-start gap-4 border border-border p-8 rounded-card"
+      >
+        <motion.span
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+          className="flex size-10 items-center justify-center rounded-full bg-accent text-accent-foreground"
+        >
           <Check className="size-5" aria-hidden />
-        </span>
+        </motion.span>
         <h2 className="text-h4 font-medium text-text">Message received</h2>
         <p className="max-w-[var(--width-text)] text-body text-text-muted">
           Thanks for reaching out. We&apos;ll get back to you shortly.
         </p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -93,6 +117,12 @@ export function ContactForm() {
       <FormField label="Message" htmlFor="message" error={errors.message?.message}>
         <textarea id="message" rows={6} className={textareaClasses} {...register("message")} />
       </FormField>
+
+      {submitError ? (
+        <p role="alert" className="text-small text-danger">
+          {submitError}
+        </p>
+      ) : null}
 
       <PrimaryButton type="submit" disabled={isSubmitting} showArrow={false} className="w-full sm:w-auto">
         {isSubmitting ? "Sending…" : "Send message"}

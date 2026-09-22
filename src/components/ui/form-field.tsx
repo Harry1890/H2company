@@ -32,7 +32,7 @@ export function FormField({
 }
 
 export const inputClasses =
-  "h-12 w-full rounded-input border border-border-strong bg-surface px-4 text-body text-text placeholder:text-text-soft focus-visible:border-text";
+  "h-12 w-full rounded-input border border-border-strong bg-surface px-4 text-body text-text placeholder:text-text-soft transition-shadow duration-200 focus-visible:border-text focus-visible:shadow-[0_0_0_3px_rgba(17,17,17,0.06)]";
 
 export const textareaClasses =
-  "w-full rounded-input border border-border-strong bg-surface px-4 py-3 text-body text-text placeholder:text-text-soft focus-visible:border-text";
+  "w-full rounded-input border border-border-strong bg-surface px-4 py-3 text-body text-text placeholder:text-text-soft transition-shadow duration-200 focus-visible:border-text focus-visible:shadow-[0_0_0_3px_rgba(17,17,17,0.06)]";

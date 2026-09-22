@@ -17,8 +17,15 @@
   --border-strong: rgba(17, 17, 17, 0.18);
   --border-dark: rgba(255, 255, 255, 0.12);
 
-  --accent: #d7ff45;
-  --accent-foreground: #111111;
+  --brand-blue-deep: #022f90;
+  --brand-blue: #004cc6;
+  --brand-blue-mid: #2293fc;
+  --brand-cyan: #3ddffd;
+  --brand-navy: #0b2a5b;
+  --gradient-brand: linear-gradient(120deg, var(--brand-blue) 0%, var(--brand-blue-mid) 55%, var(--brand-cyan) 100%);
+
+  --accent: var(--brand-blue-mid);
+  --accent-foreground: #ffffff;
 
   --success: #4f8a5b;
   --warning: #b57a26;
@@ -49,6 +56,11 @@
 
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-brand-blue-deep: var(--brand-blue-deep);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-mid: var(--brand-blue-mid);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-navy: var(--brand-navy);
 
   --color-success: var(--success);
   --color-warning: var(--warning);

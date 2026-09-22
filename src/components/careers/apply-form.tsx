@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Check } from "lucide-react";
+import { motion } from "motion/react";
 import { FormField, inputClasses, textareaClasses } from "@/components/ui/form-field";
 import { PrimaryButton } from "@/components/ui/primary-button";
 import { cn } from "@/lib/utils";
@@ -27,33 +28,71 @@ const applySchema = z.object({
 
 type ApplyValues = z.infer<typeof applySchema>;
 
-export function ApplyForm({ jobTitle }: { jobTitle: string }) {
+export function ApplyForm({ jobTitle, jobSlug }: { jobTitle: string; jobSlug: string }) {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ApplyValues>({ resolver: zodResolver(applySchema) });
 
-  async function onSubmit() {
-    // Frontend-only mock submission — no backend/ATS is wired up yet.
-    // TODO: replace with a real application-intake integration.
-    await new Promise((resolve) => setTimeout(resolve, 900));
-    setSubmitted(true);
+  async function onSubmit(values: ApplyValues) {
+    setSubmitError(null);
+
+    const formData = new FormData();
+    formData.append("jobTitle", jobTitle);
+    formData.append("jobSlug", jobSlug);
+    formData.append("firstName", values.firstName);
+    formData.append("lastName", values.lastName);
+    formData.append("email", values.email);
+    formData.append("phone", values.phone);
+    if (values.linkedin) formData.append("linkedin", values.linkedin);
+    if (values.portfolio) formData.append("portfolio", values.portfolio);
+    if (values.coverLetter) formData.append("coverLetter", values.coverLetter);
+    formData.append("workAuthorization", values.workAuthorization);
+    formData.append("sponsorshipRequired", values.sponsorshipRequired);
+    if (values.additionalInfo) formData.append("additionalInfo", values.additionalInfo);
+    const file = values.resume?.[0];
+    if (file) formData.append("resume", file);
+
+    try {
+      const response = await fetch("/api/apply", { method: "POST", body: formData });
+      const result = await response.json().catch(() => ({ ok: false }));
+      if (!response.ok || !result.ok) {
+        setSubmitError(
+          result.error ?? "Something went wrong submitting your application. Please try again.",
+        );
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Something went wrong submitting your application. Please try again.");
+    }
   }
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-start gap-4 border border-border p-8 rounded-card">
-        <span className="flex size-10 items-center justify-center rounded-full bg-accent text-accent-foreground">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="flex flex-col items-start gap-4 border border-border p-8 rounded-card"
+      >
+        <motion.span
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+          className="flex size-10 items-center justify-center rounded-full bg-accent text-accent-foreground"
+        >
           <Check className="size-5" aria-hidden />
-        </span>
+        </motion.span>
         <h2 className="text-h4 font-medium text-text">Application received</h2>
         <p className="max-w-[var(--width-text)] text-body text-text-muted">
           Thanks for applying to {jobTitle}. We review every application and will follow up if
           there&apos;s a fit.
         </p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -118,7 +157,7 @@ export function ApplyForm({ jobTitle }: { jobTitle: string }) {
             {...register("workAuthorization")}
           >
             <option value="" disabled>
-              Are you authorized to work in the U.S.?
+              Are you authorized to work in the EU?
             </option>
             <option value="yes">Yes</option>
             <option value="no">No</option>
@@ -152,6 +191,12 @@ export function ApplyForm({ jobTitle }: { jobTitle: string }) {
       >
         <textarea id="additionalInfo" rows={4} className={textareaClasses} {...register("additionalInfo")} />
       </FormField>
+
+      {submitError ? (
+        <p role="alert" className="text-small text-danger">
+          {submitError}
+        </p>
+      ) : null}
 
       <PrimaryButton type="submit" disabled={isSubmitting} showArrow={false} className="w-full sm:w-auto">
         {isSubmitting ? "Submitting…" : "Submit application"}

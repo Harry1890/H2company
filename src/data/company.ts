@@ -10,7 +10,7 @@ export const companyConfig = {
   description:
     "Production AI, machine learning, and agentic systems built for real-world use.",
 
-  locations: ["Remote — United States"] as string[],
+  locations: ["Remote — France"] as string[],
 
   social: {
     linkedin: "",

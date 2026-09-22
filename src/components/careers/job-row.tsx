@@ -5,7 +5,7 @@ import type { Job } from "@/types";
 function formatSalary(job: Job) {
   if (!job.salary) return null;
   const { min, max } = job.salary;
-  return `$${Math.round(min / 1000)}K–$${Math.round(max / 1000)}K`;
+  return `€${Math.round(min / 1000)}K–€${Math.round(max / 1000)}K`;
 }
 
 export function JobRow({ job }: { job: Job }) {
@@ -14,7 +14,7 @@ export function JobRow({ job }: { job: Job }) {
   return (
     <Link
       href={`/careers/${job.slug}`}
-      className="group flex flex-col gap-2 border-t border-border py-6 transition-colors hover:bg-bg-soft sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-2"
+      className="group flex flex-col gap-2 border-t border-border py-6 transition-all duration-300 hover:bg-bg-soft sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-2 sm:hover:px-4"
     >
       <div>
         <h3 className="text-h4 font-medium text-text">{job.title}</h3>

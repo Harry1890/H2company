@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import type { Job } from "@/types";
 import { JobFilter } from "./job-filter";
 import { JobRow } from "./job-row";
@@ -44,9 +45,20 @@ export function CareersBoard({ jobs }: { jobs: Job[] }) {
       <div className="lg:col-span-9">
         {visible.length > 0 ? (
           <div className="border-b border-border">
-            {visible.map((job) => (
-              <JobRow key={job.id} job={job} />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {visible.map((job) => (
+                <motion.div
+                  key={job.id}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                >
+                  <JobRow job={job} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         ) : (
           <p className="text-body text-text-muted">No open roles match these filters right now.</p>

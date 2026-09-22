@@ -70,7 +70,7 @@ export interface Job {
   salary?: {
     min: number;
     max: number;
-    currency: "USD";
+    currency: "EUR";
   };
   summary: string;
   about: string;

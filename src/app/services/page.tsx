@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { Reveal } from "@/components/ui/reveal";
 import { services } from "@/data/services";
 
 export const metadata: Metadata = {
@@ -14,10 +15,12 @@ export default function ServicesPage() {
     <>
       <Section spacing="compact" tone="light">
         <Container className="max-w-[var(--width-longform)]">
-          <Eyebrow>What We Do</Eyebrow>
-          <h1 className="mt-4 text-display-l font-medium text-text">
-            AI engineering from architecture to production.
-          </h1>
+          <Reveal>
+            <Eyebrow>What We Do</Eyebrow>
+            <h1 className="mt-4 text-display-l font-medium text-text">
+              AI engineering from architecture to production.
+            </h1>
+          </Reveal>
         </Container>
       </Section>
 
@@ -29,7 +32,7 @@ export default function ServicesPage() {
           border
         >
           <Container>
-            <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+            <Reveal className="grid gap-10 lg:grid-cols-12 lg:gap-12">
               <div className="lg:col-span-4">
                 <span className="font-mono text-meta text-text-soft">
                   {String(index + 1).padStart(2, "0")}
@@ -40,7 +43,7 @@ export default function ServicesPage() {
                   {service.technologies.map((tech) => (
                     <li
                       key={tech}
-                      className="rounded-full border border-border-strong px-3 py-1 font-mono text-meta text-text-soft"
+                      className="rounded-full border border-border-strong px-3 py-1 font-mono text-meta text-text-soft transition-colors duration-200 hover:border-text hover:text-text"
                     >
                       {tech}
                     </li>
@@ -86,7 +89,7 @@ export default function ServicesPage() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </Container>
         </Section>
       ))}

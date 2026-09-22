@@ -8,7 +8,7 @@ export function CapabilitiesSection() {
   return (
     <Section spacing="default" tone="soft">
       <Container>
-        <SectionHeader eyebrow="03 / Capabilities" title="From model to production." />
+        <SectionHeader index="03" eyebrow="Capabilities" title="From model to production." />
         <div className="mt-12 border-b border-border">
           {capabilities.map((capability) => (
             <CapabilityRow key={capability.title} {...capability} />
