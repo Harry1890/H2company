@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -27,6 +28,17 @@ export default function CompanyPage() {
           </Reveal>
         </Container>
       </Section>
+
+      <Reveal className="relative w-full">
+        <Image
+          src="/company-banner.jpg"
+          alt="A workspace overlooking a city skyline at sunset, with the message: Build Today for a Better Tomorrow — AI, Systems, People, Impact. Learn, Build, Give Back — a more open, empowered world."
+          width={2056}
+          height={765}
+          sizes="100vw"
+          className="h-auto w-full object-cover"
+        />
+      </Reveal>
 
       <Section spacing="default" tone="light" border>
         <Container>

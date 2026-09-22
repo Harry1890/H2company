@@ -27,6 +27,8 @@
   --accent: var(--brand-blue-mid);
   --accent-foreground: #ffffff;
 
+  --logo-wordmark: var(--brand-navy);
+
   --success: #4f8a5b;
   --warning: #b57a26;
   --danger: #b74a4a;
@@ -35,6 +37,30 @@
   --width-content: 1280px;
   --width-text: 760px;
   --width-longform: 820px;
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0c0d0b;
+  --bg-soft: #151611;
+  --surface: #171814;
+  --surface-dark: #050605;
+  --surface-dark-soft: #0e0f0c;
+
+  --text: #f7f7f2;
+  --text-muted: #b6b8b0;
+  --text-soft: #7c7e77;
+  --text-inverse: #f7f7f2;
+  --text-inverse-muted: #b6b8b0;
+
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-dark: rgba(255, 255, 255, 0.12);
+
+  --logo-wordmark: #ffffff;
+
+  color-scheme: dark;
 }
 
 @theme inline {

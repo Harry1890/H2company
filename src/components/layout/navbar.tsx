@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import { PrimaryButton } from "@/components/ui/primary-button";
 import { Logo } from "./logo";
 import { MobileNav } from "./mobile-nav";
+import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -55,12 +56,16 @@ export function Navbar() {
             );
           })}
         </nav>
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <PrimaryButton href="/contact" className="h-11 px-5">
             Talk to us
           </PrimaryButton>
         </div>
-        <MobileNav />
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <MobileNav />
+        </div>
       </Container>
     </header>
   );

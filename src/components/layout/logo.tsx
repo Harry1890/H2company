@@ -9,7 +9,7 @@ export function Logo({ inverse = false }: { inverse?: boolean }) {
       href="/"
       className={cn(
         "inline-flex items-center gap-2 text-h4 font-bold tracking-tight",
-        inverse ? "text-text-inverse" : "text-brand-navy",
+        inverse ? "text-text-inverse" : "text-(--logo-wordmark)",
       )}
     >
       <Image
